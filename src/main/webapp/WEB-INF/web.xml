@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>vehicle-monitor-controller-backend</display-name>
+  <resource-ref>
+    <res-ref-name>jdbc/DefaultDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+  </resource-ref>
+  <resource-ref>
+    <res-ref-name>analyticsDestination</res-ref-name>
+    <res-type>com.sap.core.connectivity.api.http.HttpDestination</res-type>
+  </resource-ref>
+  <resource-ref>
+    <res-ref-name>mdcDestination</res-ref-name>
+    <res-type>com.sap.core.connectivity.api.http.HttpDestination</res-type>
+  </resource-ref>
+  <servlet>
+    <description></description>
+    <display-name>AddMeasurement</display-name>
+    <servlet-name>AddMeasurement</servlet-name>
+    <servlet-class>org.ttsokov.vehicle_monitor_controller.backend.servlets.AddMeasurement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMeasurement</servlet-name>
+    <url-pattern>/AddMeasurement</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DataManager</display-name>
+    <servlet-name>DataManager</servlet-name>
+    <servlet-class>org.ttsokov.vehicle_monitor_controller.backend.servlets.DataManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DataManager</servlet-name>
+    <url-pattern>/DataManager</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Analytics</display-name>
+    <servlet-name>Analytics</servlet-name>
+    <servlet-class>org.ttsokov.vehicle_monitor_controller.backend.servlets.Analytics</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Analytics</servlet-name>
+    <url-pattern>/Analytics</url-pattern>
+  </servlet-mapping>
+  <login-config>
+    <auth-method>FORM</auth-method>
+  </login-config>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <url-pattern>/Analytics</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Everyone</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <description>All Platform users</description>
+    <role-name>Everyone</role-name>
+  </security-role>
+  <session-config>
+    <session-timeout>45</session-timeout>
+  </session-config>
+</web-app>
